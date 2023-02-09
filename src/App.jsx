@@ -1,25 +1,28 @@
-import { useState } from 'react'
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-import { useNavigate } from 'react-router-dom'
-import auth from './config'
-import reactLogo from './assets/react.svg'
-import './App.css'
-import { async } from '@firebase/util'
+import { Routes, Route } from "react-router-dom"
+import Login from "./components/Login/Login.component"
+import Navigation from "./routes/navigation/navigation.component"
+import Home from "./routes/home/home.component"
+import Contact from "./routes/Contact/Contact.component"
 
-function App() {
-  const Navigate = useNavigate()
-  async function Login() {
-    const data = await signInWithPopup(auth, new GoogleAuthProvider())
-    Navigate(`/home/${data.user.email}`)
+const About = () => {
+  return <h1>This Is About</h1>
+  
 }
 
-  return (
-    <div className="App">
-      <button onClick={Login}>Login</button>
-    </div>
+function App () {
+return (
+  <Routes>
+    <Route  path='/' element={<Login />} ></Route>
+    <Route path='/' element={<Navigation />}>
+    <Route  path='Home' element={<Home  />} />
+    <Route  path='About' element={<About />} />
+    <Route path='Contact' element={<Contact/>}/>
+    </Route>
+  </Routes>
+  
   )
 }
 
-
+  
 
 export default App
